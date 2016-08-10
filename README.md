@@ -8,26 +8,11 @@
         Understand how call stack shrinks when a function completes
         Understand where the program continues after a function completes
         Understand pointers
-            Distinguish the meaning of the pointer in four different context
-            Apply pointers in appropriate context
     Implement algorithms using C
         Describe an algorithm in English
-            Describe the assumptions and restrictions of the problem
-            Describe the input of the algorithm
-            Describe the desired outcome of the algorithm
-            Describe the procedure to produce the desired outcome from the input
         Generate scenarios to validate the algorithm
-            Describe all valid scenarios that can be handled by the algorithm
-            Identify at least three invalid scenarios which cannot be handled by the algorithm
         Translate an algorithm from English to a C program
-            Choose appropriate library functions when translating an algorithm
-            Utilize online manual of library functions and distinguish between related functions
-            Convert the procedure in English to appropriate syntax in the C program
         Create test cases to verify the program
-            Differentiate between correct and incorrect results when testing a program
-            Understand the functionalities of various tools for testing and debugging
-            Utilize appropriate tools in testing
-            Interpret the results from testing and take appropriate action for correcting the program
     Write programs that use recursion
         Explain the terminating condition(s) of recursion
         Describe the solution for a complex case based on the solutions of simpler cases
