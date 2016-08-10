@@ -1,5 +1,5 @@
 # ECE264
-
+Course outcomes:
     Explain how the call stack changes as a program progresses
         Understand how local variables and arguments appear on call stack in function codes
         Understand how call stack grows when a function called
