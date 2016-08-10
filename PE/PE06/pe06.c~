@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "answer06.h"
+
+int main(int argc, char * argv[])
+{
+  char **maze;
+  char **maze_row;
+  int nrow,ncol;
+  int rrow,rcol;
+  int cnt;
+  
+  char *filename = argv[2];
+  FILE *fptr = fopen(argv[1],"r");
+  
+  maze = Read_maze_from_2Dfile(fptr,&nrow,&ncol);
+  fclose(fptr);  
+
+  maze_row = Expand_maze_row(maze,nrow,ncol,&rrow,&rcol);
+  
+  cnt = Write_maze_to_2Dfile(filename,maze_row,rrow,rcol);
+  
+  printf("rrow = %d,rcol = %d",rrow,rcol);
+
+  
+  Deallocate_maze_space(maze_row,rrow);  
+  Deallocate_maze_space(maze,nrow);
+  
+  return 0;
+}

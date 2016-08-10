@@ -1,0 +1,8 @@
+pe10: pe10.o answer10.o
+	gcc -Wall -Werror -Wshadow -g answer10.o pe10.o -o pe10
+answer10.o: list_tree.h answer10.c
+	gcc -Wall -Werror -Wshadow -g -c answer10.c
+pe10.o: list_tree.h pe10.c
+	gcc -Wall -Werror -Wshadow -g -c pe10.c
+clean:
+	rm -f*.o pe10 pe10.o answer10.o

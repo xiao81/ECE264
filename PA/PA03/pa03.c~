@@ -1,0 +1,116 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "pa_answer03.h"
+
+int main(int argc,char * argv[])
+{
+  int size,row,i,j;
+  if(strcmp(argv[1],"-i") == 0)
+    {
+      if(argv[2] != NULL && argv[3] != NULL)
+	{
+	  double **matrix1 = Read_matrix_from_file(argv[2],&size);
+	  matrix1 = Invert_matrix(matrix1,size);
+	  if(matrix1 == NULL)
+	    {
+	      fprintf(stderr,"exit fail\n");
+	      return EXIT_FAILURE;
+	    }
+	  Write_matrix_to_file(argv[3],matrix1,size);
+          for (row = 0;row < size;row++)
+	    {
+	      free(matrix1[row]);
+	    }
+	  free(matrix1);
+	}
+      else
+	{
+          fprintf(stderr,"exit fail\n");
+	  return EXIT_FAILURE;
+	}
+    } 
+    else if(strcmp(argv[1],"-m") == 0)
+      {
+	if(argv[2] != NULL && argv[3] != NULL && argv[4] != NULL)
+	  {
+	    double **matrix2;
+	    double **matrix2a = Read_matrix_from_file(argv[2],&size);
+	    double **matrix2b = Read_matrix_from_file(argv[3],&size);
+	    matrix2 = Matrix_matrix_multiply(matrix2a,matrix2b,size);
+	    if(matrix2a == NULL||matrix2b == NULL)
+	      {
+		fprintf(stderr,"exit fail\n");
+		return EXIT_FAILURE;
+	      }
+	    Write_matrix_to_file(argv[4],matrix2,size);
+	    for (row = 0;row < size;row++)
+	      {
+		free(matrix2a[row]);
+	      }
+	    free(matrix2a);
+	    for (row = 0;row < size;row++)
+	      {
+		free(matrix2b[row]);
+	      }
+	    free(matrix2b);
+	  }
+	else
+	  {
+	    fprintf(stderr,"exit fail\n");
+	    return EXIT_FAILURE;
+	  }
+      
+      } 
+   if(strcmp(argv[1],"-d") == 0)
+    {
+      if(argv[2] != NULL )
+	{
+	  double **matrix3 = Read_matrix_from_file(argv[2],&size);
+	  double result = Deviation_from_identity(matrix3,size);
+	  if( result == 0.0)
+	    {
+	      fprintf(stderr,"exit fail\n");
+	      return EXIT_FAILURE;
+	    }
+	  printf("%e\n", result); 
+	  for (row = 0;row < size;row++)
+	    {
+	      free(matrix3[row]);
+	    }
+	  free(matrix3);
+	}
+	else
+	  {
+	    fprintf(stderr,"exit fail\n");
+	    return EXIT_FAILURE;
+	  }
+    } 
+
+
+
+
+
+     double ** test_matrix = Read_matrix_from_file(argv[4],&size); 
+ 
+     //x = Write_matrix_to_file(outputfile,matrix,size);
+     // matrix = Read_matrix_from_file(outputfile,&size);
+  
+     //matrix = Invert_matrix(matrix,size);
+     for (i=0;i<size;i++)
+      {
+       for (j=0;j<size;j++)
+         {
+           printf("%lf\t",test_matrix[i][j]);
+         }
+       printf("\n");
+       }
+     for (row = 0;row < size;row++)
+            {
+              free(test_matrix[row]);
+            }
+          free(test_matrix);
+ 
+  
+  return 0;
+}

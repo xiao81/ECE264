@@ -1,0 +1,157 @@
+In this exercise, you will implement three functions:
+(i) A recursive function to play the mind guessing game
+(ii) An iterative function to play the mind guessing game
+(iii) A main function to call the appropriate function in (i) or (ii)
+based on the input arguments
+
+// ~ Learning Goals ~ //
+
+The main learning goals:
+(1) How to write a recursive function
+(2) How to turn a recursive function into an iterative function
+
+// ~ Getting Started ~ //
+
+The PE03 folder contains six files:
+(1) utility.h: this is the file that you should include in pe03.c and 
+answer03.c.  It contains functions for me to count the number of recursive 
+calls you have made in your functions.   That way, I can check whether 
+the number of recursion calls you have made is reasonable.
+(2) utility.o: this is the object code that I have compiled.  It contains the
+functions declared in utility.h.  However, these functions are blackboxes 
+because you have no access to the source code.
+(3) answer03.h:  this is the file that declares the two functions in (i) and 
+(ii) that you have to write.
+(4) answer03.c:  this is the file that you have to turn in.  You have to 
+define the two functions in (i) and (ii).
+(5) pe03.c:  this is another file that you have to turn in.  You have to
+write the main function in this file.
+(6) README: this file.
+
+You will be writing code in the answer03.c file. You will also write code 
+in the pa03.c file for the main function as well as function to test 
+the functions written in the answer03.c file.
+
+// ~ Submitting Your Exercise ~ //
+
+You must submit a zip file to blackboard.  The zip file contains
+exactly two files:
+(1) answer03.c (10 points)
+(2) pe03.c (2 points)
+
+You create the zip file using the following command.
+ 
+> zip pe03.zip answer03.c pe03.c
+
+Submit "pe03.zip" to blackboard.
+
+// ~ (1a) Compiling Your Program ~ //
+
+To compile your program, use the following command:
+
+> gcc -Wall -Wshadow -Werror -g pe03.c answer03.c utility.o -o pe03
+
+// ~ (1b) Running Your Program ~ //
+
+To run your program, you type in, for example, the following command at a terminal
+
+> ./pe03 -r 1 2048 
+
+The command specifies that you run the recursive function ("-r" option),
+and that the computer is supposed to guess a number in the range
+1 to 2048 (inclusive).  You may change the two numbers to stress test 
+your program.
+
+If you want the program to run the iteration function, you type in the
+following command:
+
+> ./pe03 -i 1 2048 
+
+The "-i" option specifies that the main function should run the
+iterative function.
+
+Note that either command should print the following on the screen:
+
+Welcome to ECE264, we are working on PE03.
+
+...
+
+After that, you should respond to the questions and answer accordingly
+for your program to guess the number you have in your mind.
+
+// ~ (2) Running your program in Valgrind ~ //
+
+I am not asking you to submit a log this time.  However, it is
+always a good practice to check for abnormal behavior of your
+program in Valgrind.
+
+// ~ (3a) Mind guessing game -- Recursion ~ //
+
+This exercise requires you to modify the mind guessing game covered in the 
+lecture such that it guesses for a number within a range [lb,ub] where 
+'lb' is a lower bound and 'ub' is an upper bound.  In the lecture, we 
+are always guessing the number from 1 to the input upper limit.
+
+The mind guessing function given in the lecture takes in offset and size as 
+arguments. It divides the problem of size n to n/2 based on answer to the 
+question "Is the number greater than (offset + size/2)?" This recursion 
+continues until the size of the problem equals 1. Then the program terminates 
+with the output (offset+1). 
+
+Can we extend the same function to take in a lower bound and upper bound as 
+a range and guess a number within this range? The program will be called now 
+with any range [lb, ub].  Again, you want to divide the problem evenly.
+If there are even number of integers in the range, divide evenly 
+into two ranges [lb, mid], [mid+1, ub].  Otherwise, divide into
+two ranges [lb, mid], [mid+1, ub] such that the range [lb, mid] has
+one more integer than the range [mid+1, ub].
+Now, you have to ask the question "Is the number greater than mid?"  Based 
+on the answer, you have to recursively call the function with tighter lower 
+and upper bounds.
+
+In your code, you have to call Increment_count when you first enter
+the recursive function so that I can count the number of recursive calls 
+that your program has made.
+
+// ~ (3b) Mind guessing game -- Iteration ~ //
+
+As part of this exercise, you also have to implement an iterative version
+of the mind-guessing game.  
+
+Again, in this function, you have to call Increment_count when you first enter
+the function so that I can count the number of function calls you have made.
+The number of function calls should be exactly 1.
+
+// ~ (3c) main function ~//
+
+In the main function, you have to first call Initialize_counter before
+you call any of the two functions.  Before exiting the main function,
+you have to print the guessed number, call the Get_counter function, and 
+print the returned value.  These have been included in the skeleton file 
+pe03.c.
+
+The part you have to work on is to parse the input arguments to determine
+(i) which function do you run: recursive or iterative,
+(ii) convert the second input argument as the lower bound
+(iii) covert the third input argument as the upper bound
+
+Use the function atoi to convert the second and third input arguments into
+integers.  Even if the second and third input arguments are not valid numbers,
+use the returned values of atoi as your lower and upper bounds.
+
+Your program should exit immediately with EXIT_FAILURE if any of the 
+following is true:
+(i) insufficient input arguments.
+(ii) the option provided is not "-i" or "-r".
+(iii) the lower bound is greater than the upper bound.
+
+Otherwise, you call the appropriate mind guessing function,
+play the mind guessing game, print the guessed number, call the
+Get_counter function, and print the returned value. 
+
+// ~ Grading ~ //
+
+The 12 points are distributed as follows:
+(1) mind_guessing_rec:  4 points.
+(2) mind_guessing_itr: 6 points.
+(3) main: 2 points.

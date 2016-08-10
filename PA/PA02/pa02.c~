@@ -1,0 +1,18 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "pa_answer02.h"
+
+
+int main(int argc, char * argv[])
+{
+
+  char *mazefile = argv[1];
+  char *directionfile1 = argv[2];
+  char *directionfile2 = argv[3];
+  char *mowedfile = argv[4];
+  int c;
+  Get_mowing_directions(mazefile, directionfile1);
+  c = Simulate_mowing(mazefile,directionfile2,mowedfile);
+
+  return 0;
+}

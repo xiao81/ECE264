@@ -1,0 +1,324 @@
+
+In this assignment, you will implement five different array processing
+functions. Your solution should be short: between 50 and 150 lines of
+code, including lines used for spacing.
+
+// ~ Learning Goals ~ //
+
+The main learning goals are five-fold, and all of them equally
+important. You must learn:
+(1) How to compile, run, and test your code.
+(2) How to run your code under valgrind, in order to find memory
+errors.
+(3) How to "iterate" over arrays in C.
+(4) How to use argc and argv correctly in main.
+
+// ~ Getting Started ~ //
+
+The PA01 folder contains five files:
+(1) answer01.c: this is the file that you hand in. It has the skeleton
+of five functions in it, and you must "fill in the blanks".
+(2) answer01.h: this is a "header" file and it contains a complete
+explanation of the functions you will be writing for this assignment.
+(3) pa01.c: You should use this file to write testing code that
+runs the functions in answer01.c, in order to ensure their
+correctness. pa01.c comes with some example testing code to help you
+get started.  Without arguments, your code should run in test mode, i.e,
+simply the test functions in pa01.c.  With proper arguments, your code should 
+call the correct functions written in answer01.c, and you are supposed to
+write the code to parse the arguments.
+(4) README: this file.
+(5) inputfile: an input file for testing your main function.  It is 
+a file that contains only numbers. 
+
+To get started, browse through the answer01.h file, to see what code
+needs to be written. You will be writing code in the answer01.c
+file. You will also write code in the pa01.c file to test code written in
+the answer01.c file.  Moreover, you will write code in the main function 
+to call the correct functions in answer01.c.  pa01.c contains the comments
+telling you the code that needs to be written in pa01.c. 
+
+Follow the discussions below on how to compile and run your code, as
+well as test and submit it.
+
+// ~ Submitting Your Assignment ~ //
+
+You must submit one zip file to blackboard. This zip file must contain
+precisely three files:
+(1) answer01.c (8 points)
+(2) pa01.c  (3 points)
+(3) memcheck.log, a Valgrind log that you produced running your
+program. (1 points)
+
+Notes on creating each of these files are included in this readme.
+You create the zip file using the following command.
+ 
+> zip pa01.zip answer01.c pa01.c memcheck.log 
+
+Submit "pa01.zip" to blackboard.
+
+// ~ (1a) Compiling Your Program ~ //
+
+The remainder of this document is to help you figure out how to meet
+the learning goals of this assignment. Firstly, you must compile, run
+and test your program.
+
+In this course we use the compiler "gcc", which is one of the world's
+best and most important C compilers. You can compile your program by
+typing the following into the terminal (make sure you are in your PA01
+directory):
+
+> gcc -Wall -Wshadow -Werror -g pa01.c answer01.c -o pa01
+
+Gcc takes a wide variety of arguments, and these are the most
+important arguments that we will use, and re-use in this course. The
+arguments mean:
+(1) -Wall, turn on all *common* compilation warnings. 
+(2) -Wshadow, in addition to common warnings, warn if a variable
+declaration "shadows" the declaration of another variable.
+(3) -Werror, turn warnings into errors.  In other words, you won't 
+get an executable when you have warnings.  Therefore, you have
+to fix all warnings.
+(3) -g, turn on debugging symbols. This produces a larger executable
+program; however, you can use this program in a debugger. You will
+need to learn how to use the debugger "gdb" in order to pass this 
+course.
+(4) pa01.c answer01.c. These are the files that you are compiling and
+linking into a computer program. You only ever compile ".c" files. You
+never compile ".h" files. Each ".c" file is compiled separately (gcc
+does this internally), and multiple ".c" files are linked together
+into a single computer program. Compiling and linking are two
+different steps, but here we are doing both steps with a single
+instruction. The "int main(...)" function must appear in precisely one
+of those ".c" files (pa01.c). It cannot appear in answer01.c. 
+(5) -o pa01, create an "output file" pa01. By default gcc will produce
+a file called "a.out", and we are just telling gcc to name that file
+"pa01" instead.
+
+// ~ (1b) Running Your Program ~ //
+
+To run your program, simply type into the terminal:
+
+> ./pa01
+
+Note that this should print:
+
+Welcome to ECE264, we are working on PA01.
+
+This statement is printed by a "printf" statement in pa01.c. You can
+(and should) modify pa01.c, and edit its behavior, in order to test
+the behavior of the functions you are writing in "answer01.c".
+
+The file (technically: compilation unit) pa01.c "knows" about the
+functions in answer01.c, because it "includes" the declarations for
+those functions, which are written in the file "answer01.h". 
+Declarations and are not compiled into code, but instead, they merely
+describe the existence of some compilable function in some compilation
+unit somewhere. In this case, the functions declared in answer01.h are
+defined in the compilation unit "answer01.c".
+
+// ~ (1c) Testing Your Program ~ //
+
+It is your responsibility to test your program and ensure that it
+works. A program that is correct 99% of the time is still non-functional.
+It is very difficult to write programs correctly, and large programs almost 
+always contain subtle bugs. For this reason, software engineers should
+adopt a zero-tolerance policy for software defects. 
+
+Please note that receiving a passing grade for a function/program
+does not mean your assignment is perfect, but it does mean that your 
+assignment passes the tests we thought to put it through. 
+
+Testing your own program is a fundamental skill if you want to be
+a programmer.  
+
+So how do you write and test your code?
+
+The most important thing to understand is that you should test your
+code as you go. Because you are just starting, pa01.c includes a
+little bit of testing code to start you off. However, in future
+assignments, you will have to generate all of the testing code
+yourself.
+
+These sample testing routines are named test_00_arraySum() and 
+test_01_arrayCountNegative().  You probably want to write 
+test_02_arrayIsIncreasing() adn test_03_arrayFindSmallest().
+
+To write your own testing code, you have to *think* about the function your
+developing, and then you have to write code that *demonstrates* that
+it *always* works. This is a core skill to develop if you are
+interested in being a competent computer programmer.
+
+// ~ (1d) Running Your Program with arguments ~ //
+
+In pa01.c, you also have to fill in the main function with
+correct statements so that you will get the following
+screen output for when you type in different commands:
+> ./pa01 0 inputfile
+Welcome to ECE264, we are working on PA01.
+
+{142, 44, 333, 33, 246, 40, -10, -204, 190}
+
+814
+> ./pa01 1 inputfile
+Welcome to ECE264, we are working on PA01.
+
+{142, 44, 333, 33, 246, 40, -10, -204, 190}
+
+2
+> ./pa01 2 inputfile
+Welcome to ECE264, we are working on PA01.
+
+{142, 44, 333, 33, 246, 40, -10, -204, 190}
+
+0
+> ./pa01 3 inputfile
+Welcome to ECE264, we are working on PA01.
+
+{142, 44, 333, 33, 246, 40, -10, -204, 190}
+
+7
+> ./pa01 193 inputfile
+Welcome to ECE264, we are working on PA01.
+
+{142, 44, 333, 33, 246, 40, -10, -204, 190}
+
+0
+> ./pa01 inputfile
+Welcome to ECE264, we are working on PA01.
+
+In the second to last command, the first
+argument is invalid.  In the last command,
+We are short of 1 argument.  If an invalid
+filename is given, the array will be a NULL
+array, and variable len will stay as 0.  
+You should only worry about the handling of the
+first argument correctly.  I have already
+handle the second argument for you correctly.
+You should also not have to write any "printf"
+statement in the main function.  You are
+allowed to write "printf" statement in
+your test functions.
+
+You can also create a different file, inputfile_alt, for
+example, and use that file in the commands.
+ 
+// ~ (2a) Running ./pa01 Under Valgrind ~ //
+
+Valgrind is an extremely useful tool for finding problems in C
+programs. It is free-software, and (for C) as good as any software
+commercially available. Comparable commercial software is usually
+worth a few thousand dollars per user. (!).
+
+It is a core goal of this course that you learn how to use Valgrind in
+order to ensure that your assignments do not have memory errors. If
+you do not learn how to use Valgrind, and you pass the course, then we
+have failed as educators. Valgrind is an invaluable tool in an
+engineers toolbox to do what most people in society don't know how to
+do: ensure that something is correct.
+
+Valgrind has many functions; however, in this course, we will concern
+ourselves with the "memcheck" function. The memcheck function runs
+your code in an emulated environment, and checks whether you access
+any bits of memory that you shouldn't. Memcheck also tests to see if
+you have allocated (asked for) memory that you never freed (gave
+back). Together, these two types of memory problems are some of the
+most pernicious programming problems in the world, and cost literally
+billions of dollars each year. Valgrind will help you find these
+problems.
+
+To run your code under Valgrind, you must first compile your code, and
+then type the following, for example, into the terminal:
+
+> valgrind --tool=memcheck --leak-check=full --verbose --log-file=memcheck.log ./pa01 1 inputfile
+
+This *runs* your program, but to check for errors, you must check the
+log file that you just generated: "memcheck.log". This file
+contains a lot of information. If your solution has no memory errors,
+then you will see at the end of the file something like:
+
+   ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+
+Don't worry about suppressed errors: they are not errors. When your
+program runs, the C runtime (almost always) performs a few memory
+tricks in order to execute more efficiently. Memcheck picks up these
+advanced programming tricks, and then they are suppressed because it
+is well-known that these tricks are not errors. Valgrind offers these
+error suppression facilities because they are required by advanced
+developers who work on important "glue" code that holds modern
+operating systems together. In short: don't worry about suppressed
+errors. Google is your friend if you are interested in more
+information; however, it will not be tested in this course.
+
+// ~ (2b) Debugging Valgrind Errors ~ //
+
+If you have errors from valgrind, you should fix them.
+Look for the *first* error, and debug that error. Sometimes you will
+get hundreds (or even hundreds of thousands) or errors; however, they
+may all caused by the same line of code. So just debug the first
+problem you encounter in the "memcheck.log" file.
+
+Most memory errors fall into one of four categories:
+(2b.i) "Invalid read of size X", where X is a number. This means that
+you are reading X bytes of memory that you do not have access to.
+(2b.ii) "Invalid write of size X", as above, except that you are
+*writing* memory. Writing means, that the memory access is on the
+left-hand side of an "=" sign. (ie., assignment operation, eg. x = 5.)
+(2b.iii) "X bytes in 1 blocks definitely lost in loss record U of V",
+which means that you have asked for X bytes of memory, but never freed
+them.
+(2b.iv) "Conditional jump or move depends on uninitialised value(s)" A
+conditional jump or move is what happens in an if statement or a for
+loop, where some condition (e.g., if(x > 5) {...}) determines the next
+line of code that is executed. If the memory is uninitialized (e.g.,
+"x" has not been set), then the program behavior is random. When you
+see this error, look at the involved statement and ask yourself how
+any involved variables could be uninitialized.
+
+These memory errors can be difficult to solve, but it is much easier
+if you think precisely about your code. This is necessary skill, and
+expect to spend much time over this semester learning to do just that.
+
+// ~ (2c) Submitting a Valgrind Log ~ //
+
+In order to pass this assignment, you must submit a log file produced
+by valgrind. See the section on submitting your assignment (above) for
+information on how to do that.
+
+// ~ (3) Iterating Over Arrays in C ~ //
+
+In computer science, iterating means visiting every element of a
+"collection" once, and only once. An array is the most fundamental
+type of collection, having a fixed size, and storing the elements
+sequentially. The easiest way to iterate over an array is to use an
+"index" variable in a for-loop:
+
+   // Assume we have an array "array", with length "len"
+   int ind; // the index variable
+   for(ind = 0; ind < len; ++ind) {
+      // do something with array[ind]
+   }
+
+You should already be familiar with this programming motif from
+earlier courses. Please refer to the class notes and course materials
+in order to understand how to iterate over arrays in C.
+
+// ~ Summary ~ //
+
+# Compile 
+> gcc -Wall -Wshadow -Werror -g pa01.c answer01.c -o pa01
+
+# Run -- you must write your own tests
+> ./pa01
+
+# Run under valgrind
+> valgrind --tool=memcheck --leak-check=full --verbose --log-file=memcheck.log ./pa01
+
+# Don't forget to *LOOK* at the log-file "memcheck.log"
+
+# Create a zip file of your solution:
+> zip pa01.zip answer01.c pa01.c memcheck.log
+
+# Upload pa01.zip to blackboard.
+
+# Please read all instructions before asking for help.

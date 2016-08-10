@@ -1,0 +1,28 @@
+#ifndef _LIST_TREE_H_
+#define _LIST_TREE_H_
+#include <stdint.h>
+#define ASCII_COUNT 256
+
+typeof struct_node{
+  struct_node*next;
+  tnode *tree;
+}lnode;
+
+typeof struct_tnode{
+  int value;
+  struct_tnode*left;
+  struct_tnode*right;
+}tnode;
+
+void push(lnode*head,lnode*node);
+lnode* pop(lnode*head);
+int stack_size(lnode*head);
+tnode *tree_construct(intkey,tnode*left,tnode*right);
+void tree_destruct(tnode*node);
+int is_leaf_node(tnode*node);
+lnode *node_construct(tnode*tree);
+void node_destruct(lnode*node);
+void stack_flush(lnode*head);
+void post_order_print(tnode*node,FILE*outfptr);
+tnode *Build_huffman_tree(FILE *infptr);
+#endif 
